@@ -30,7 +30,7 @@ content = driver.page_source
 
 soup = BeautifulSoup(content, features="lxml")
 
-driver.quit()
+# driver.quit()
 
 # g.highcharts-label.highcharts-tooltip.highcharts-color-0
 
@@ -67,7 +67,7 @@ for table in soup.findAll('table', attrs={'id':'highcharts-data-table-0'}):
 df_positive_result = pd.DataFrame(values_positive, columns=columns_positive[1:4])
 df_positive_result['Date']=date_positive
 
-print(df_positive_result.head())
+# print(df_positive_result.head())
 
 
 columns_cumulative_new = []
@@ -84,13 +84,12 @@ for table in soup.findAll('table', attrs={'id':'highcharts-data-table-1'}):
             row1 = []
             for td in tr.findAll('td', attrs={'class':'number'}):
                 row1.append(td.text)
-            print(row1)
             values_cumulative_new.append(row1)
 
 df_cumulative_new = pd.DataFrame(values_cumulative_new, columns=columns_cumulative_new[1:3])
 df_cumulative_new['Date']=date_cumulative_new
 
-print(df_cumulative_new.head())
+# print(df_cumulative_new.head())
 
 columns = []
 ages = []
@@ -109,20 +108,50 @@ for table in soup.findAll('table', attrs={'id':'highcharts-data-table-2'}):
             values.append(row1)
 
 
-
-
 df_age_gender = pd.DataFrame(values, columns=columns[1:4])
+
+print(columns)
+print(columns[1:4])
+
 df_age_gender['Age']=ages
-df_age_gender['Women'] = pd.to_numeric(df_age_gender['Women'])
-df_age_gender['Men'] = pd.to_numeric(df_age_gender['Men'])
+df_age_gender[['Women', 'Men']] = df_age_gender[['Women', 'Men']].apply(pd.to_numeric)
+# df_age_gender['Women'] = pd.to_numeric(df_age_gender['Women'])
+# df_age_gender['Men'] = pd.to_numeric(df_age_gender['Men'])
 
 print(df_age_gender.head())
 
 
-store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
+columns_dead = []
+ages_dead = []
+values_dead = []
+for table in soup.findAll('table', attrs={'id':'highcharts-data-table-5'}):
+    for thead in table.findAll('thead'):
+        for th in thead.findAll('th', attrs={'class':'text'}):
+            columns_dead.append(th.text)
+    for tbody in table.findAll('tbody'):
+        for th1 in tbody.findAll('th', attrs={'class':'text'}):
+            ages_dead.append(th1.text)
+        for tr in tbody.findAll('tr'):
+            row1 = []
+            for td in tr.findAll('td', attrs={'class':'number'}):
+                row1.append(td.text)
+            values_dead.append(row1)
 
+
+df_age_gender_dead = pd.DataFrame(values_dead, columns=columns[1:4])
+
+print(columns)
+print(columns[1:4])
+
+df_age_gender_dead['Age']=ages_dead
+df_age_gender_dead[['Women', 'Men']] = df_age_gender_dead[['Women', 'Men']].apply(pd.to_numeric)
+
+print(df_age_gender_dead.head())
+
+store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
 
 df_positive_result.to_pickle('data_covid/df_positive_result_' + store_date + '.pkl')
 df_cumulative_new.to_pickle('data_covid/df_cumulative_new_' + store_date + '.pkl')
 df_age_gender.to_pickle('data_covid/df_age_gender_' + store_date + '.pkl')
+df_age_gender_dead.to_pickle('data_covid/df_dead_age_gender_' + store_date + '.pkl')
 
