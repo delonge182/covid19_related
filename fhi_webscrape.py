@@ -148,7 +148,8 @@ df_age_gender_dead[['Women', 'Men']] = df_age_gender_dead[['Women', 'Men']].appl
 
 print(df_age_gender_dead.head())
 
-store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
+# store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
+store_date = str(date.today())
 
 df_positive_result.to_pickle('data_covid/df_positive_result_' + store_date + '.pkl')
 df_cumulative_new.to_pickle('data_covid/df_cumulative_new_' + store_date + '.pkl')
