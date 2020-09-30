@@ -6,7 +6,7 @@ from datetime import date
 from datetime import datetime
 
 print("Download report.xls...")
-df_covid_msis = pd.read_excel("../Downloads/report.xls", header=14, index_col=0)
+df_covid_msis = pd.read_excel("C:/Users/elga_/Downloads/report.xls", header=14, index_col=0)
 
 print("Cleaning the data...")
 df_covid_msis.replace("-", "0", inplace=True)
@@ -26,9 +26,9 @@ df_covid_msis["rep_date"] = np.datetime64(date.today())
 
 print("Save to pickle...")
 store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
-df_covid_msis.to_pickle('data_covid/df_age_fylke_' + store_date + '.pkl')
+df_covid_msis.to_pickle('D:/python workspace/ws1/data_covid/df_age_fylke_' + store_date + '.pkl')
 
 print("Remove from disk...")
-os.remove("../Downloads/report.xls")
+os.remove("C:/Users/elga_/Downloads/report.xls")
 
 print("Finish.")

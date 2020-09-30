@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import date
@@ -8,29 +11,34 @@ import pandas as pd
 import time
 
 driver = webdriver.Chrome('C:\\Users\\elga_\\Downloads\\chromedriver_win32\\chromedriver')
+driver.implicitly_wait(30)
 driver.get('https://www.fhi.no/en/id/infectious-diseases/coronavirus/daily-reports/daily-reports-COVID19/')
 # driver.get('https://www.fhi.no/sv/smittsomme-sykdommer/corona/dags--og-ukerapporter/dags--og-ukerapporter-om-koronavirus/')
 
-python_button = driver.find_elements_by_xpath("//button[@id='viewTable']")
-python_button[0].send_keys("\n")
-python_button[1].send_keys("\n")
-python_button[2].send_keys("\n")
+
+# python_button = driver.find_elements_by_xpath("//button[@id='viewTable']")
+# python_button[0].send_keys("\n")
+# python_button[1].send_keys("\n")
+# python_button[2].send_keys("\n")
 
 # python_path = driver.find_elements_by_xpath("//div[@class='fhi-border fhi-border--thick fhi-border-light-grey']")
 # print(len(python_path))
 
 
-
-python_path = driver.find_element_by_css_selector('path.highcharts-point.highcharts-color-0.highcharts-name-rogaland.highcharts-key-no-ro-11')
-hover = ActionChains(driver).move_to_element(python_path)
-hover.perform()
 # print(python_path.is_selected())
 
-content = driver.page_source
+try:
+    wait = WebDriverWait(driver, 15)
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "path.highcharts-point.highcharts-color-0.highcharts-name-rogaland.highcharts-key-no-ro-11")))
+
+    python_path = driver.find_element_by_css_selector('path.highcharts-point.highcharts-color-0.highcharts-name-rogaland.highcharts-key-no-ro-11')
+    hover = ActionChains(driver).move_to_element(python_path)
+    hover.perform()
+finally:
+    content = driver.page_source
+    driver.quit()
 
 soup = BeautifulSoup(content, features="lxml")
-
-# driver.quit()
 
 # g.highcharts-label.highcharts-tooltip.highcharts-color-0
 
@@ -151,8 +159,8 @@ print(df_age_gender_dead.head())
 # store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
 store_date = str(date.today())
 
-df_positive_result.to_pickle('data_covid/df_positive_result_' + store_date + '.pkl')
-df_cumulative_new.to_pickle('data_covid/df_cumulative_new_' + store_date + '.pkl')
-df_age_gender.to_pickle('data_covid/df_age_gender_' + store_date + '.pkl')
-df_age_gender_dead.to_pickle('data_covid/df_dead_age_gender_' + store_date + '.pkl')
+df_positive_result.to_pickle('D:/python workspace/ws1/data_covid/df_positive_result_' + store_date + '.pkl')
+df_cumulative_new.to_pickle('D:/python workspace/ws1/data_covid/df_cumulative_new_' + store_date + '.pkl')
+df_age_gender.to_pickle('D:/python workspace/ws1/data_covid/df_age_gender_' + store_date + '.pkl')
+df_age_gender_dead.to_pickle('D:/python workspace/ws1/data_covid/df_dead_age_gender_' + store_date + '.pkl')
 
