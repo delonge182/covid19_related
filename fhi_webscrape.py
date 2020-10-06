@@ -159,8 +159,8 @@ print(df_age_gender_dead.head())
 # store_date = str(date.today())+'_'+ str(datetime.today().hour) +'_'+ str(datetime.today().minute)
 store_date = str(date.today())
 
-df_positive_result.to_pickle('D:/python workspace/ws1/data_covid/df_positive_result_' + store_date + '.pkl')
-df_cumulative_new.to_pickle('D:/python workspace/ws1/data_covid/df_cumulative_new_' + store_date + '.pkl')
-df_age_gender.to_pickle('D:/python workspace/ws1/data_covid/df_age_gender_' + store_date + '.pkl')
-df_age_gender_dead.to_pickle('D:/python workspace/ws1/data_covid/df_dead_age_gender_' + store_date + '.pkl')
+df_positive_result.to_pickle('D:/python workspace/ws1/covid19_related/data_covid/df_positive_result_' + store_date + '.pkl')
+df_cumulative_new.to_pickle('D:/python workspace/ws1/covid19_related/data_covid/df_cumulative_new_' + store_date + '.pkl')
+df_age_gender.to_pickle('D:/python workspace/ws1/covid19_related/data_covid/df_age_gender_' + store_date + '.pkl')
+df_age_gender_dead.to_pickle('D:/python workspace/ws1/covid19_related/data_covid/df_dead_age_gender_' + store_date + '.pkl')
 
