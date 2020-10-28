@@ -24,7 +24,7 @@ def select_option(id_or_name, values_to_click, is_multi=True):
             if option_korona.get_attribute("text") == option_:
                 option_korona.click()
 
-driver = webdriver.Chrome('C:\\Users\\elga_\\Downloads\\chromedriver_win32\\chromedriver')
+driver = webdriver.Chrome('/home/efs/tools/chromedriver/chromedriver')
 driver.get('http://www.msis.no/')
 
 # first menu click 
@@ -72,7 +72,7 @@ driver.find_element_by_id("m_ucReportGrid_m_ctrlLagreSomExcel").click()
 # content = driver.page_source
 # soup = BeautifulSoup(content, features="lxml")
 
-# driver.quit()
+#driver.quit()
 
 print("Finish.")
 

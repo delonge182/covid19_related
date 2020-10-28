@@ -1,7 +1,7 @@
 cd D:\python workspace\ws1
 
-CALL C:/Users/elga_/Anaconda3/Scripts/activate corona_related
+CALL /home/efs/anaconda3/bin/activate corona_related
 
-C:/Users/elga_/Anaconda3/envs/corona_related/python.exe "D:/python workspace/ws1/covid19_related/fhi_webscrape.py"
+/home/efs/anaconda3/envs/corona_related/bin/python.exe "/media/efs/Data1/python workspace/ws1/covid19_related/fhi_webscrape.py"
 
 pause

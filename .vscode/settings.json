@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\elga_\\Anaconda3\\envs\\corona_related\\python.exe"
+    "python.pythonPath": "C:\\Users\\elga_\\Anaconda3\\envs\\corona_related\\python.exe",
+    "java.codeGeneration.generateComments": true
 }
